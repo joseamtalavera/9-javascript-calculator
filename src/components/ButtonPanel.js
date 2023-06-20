@@ -11,19 +11,51 @@ const ButtonPanel = ({clickHandler}) => {
     ['AC']
     ];
 
+    const numberButtons = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    const operatorButtons = ['add', 'subtract', 'multiply', 'divide'];
+
 
     return(
       <div className="button-panel"> 
         {buttonGroups.map((group, index) => (
             <div key={index} className="button-row">
-                {group.map((button) => (
-                    <Button key={button} name={button} clickHandler={clickHandler} />
-                ))}
+                {group.map((button) => {
+                  if (button === 'AC') {
+                   return (
 
-            </div>
-        ))}
+                    <Button 
+                    key={button} 
+                    id={button.toLowerCase}
+                    name={button} 
+                    clickHandler={clickHandler} 
+                    />
+                );
+                } else if (button === '=') {
+                  return (
+                    <Button
+                      key={button}
+                      id='equals'
+                      name={button}
+                      clickHandler={clickHandler}
+                      />
+                  );
+                } else {
+                  return (
+                    <Button
+                    key={button}
+                    id={numberButtons[parseInt(button)]}
+                    name={button}
+                    clickHandler={clickHandler}
+                    />
+                  );
+                }  
+                }
+               )}
+               </div>
+               ))}
+ 
       </div> 
     )
-}
+  }
 
 export default ButtonPanel;

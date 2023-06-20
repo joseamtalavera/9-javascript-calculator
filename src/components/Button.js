@@ -1,12 +1,12 @@
 import React from "react";
 
 
-const Button = ({name, clickHandler}) => {
+const Button = ({name, clickHandler, id}) => {
 
     return(
         <button
         className="calc-button"
-        id={name}
+        id={id}
         onClick={()=>clickHandler(name)} 
         >
             {name}
