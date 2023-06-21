@@ -25,7 +25,7 @@ const ButtonPanel = ({clickHandler}) => {
 
                     <Button 
                     key={button} 
-                    id={button.toLowerCase}
+                    id={button.toLowerCase()}
                     name={button} 
                     clickHandler={clickHandler} 
                     />
@@ -35,6 +35,24 @@ const ButtonPanel = ({clickHandler}) => {
                     <Button
                       key={button}
                       id='equals'
+                      name={button}
+                      clickHandler={clickHandler}
+                      />
+                  );
+                } else if (operatorButtons.includes(button)) {
+                  return(
+                    <Button
+                      key={button}
+                      id={button}
+                      name={button}
+                      clickHandler={clickHandler}
+                      />
+                  );
+                } else if (button === '.') {
+                  return(
+                    <Button
+                      key={button}
+                      id='decimal'
                       name={button}
                       clickHandler={clickHandler}
                       />
