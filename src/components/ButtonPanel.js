@@ -1,3 +1,62 @@
+
+import React from "react";
+import Button from './Button';
+
+const ButtonPanel = ({ clickHandler }) => {
+  const buttonGroups = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['0', '.', '=', '+'],
+    ['AC']
+  ];
+
+  const numberButtons = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const operatorButtons = ['add', 'subtract', 'multiply', 'divide'];
+
+  return (
+    <div className="button-panel">
+      {buttonGroups.map((group, index) => (
+        <div key={index} className="button-row">
+          {group.map((button) => {
+            let buttonLabel;
+
+            if (button === 'AC') {
+              buttonLabel = 'clear';
+            } else if (button === '=') {
+              buttonLabel = 'equals';
+            } else if (operatorButtons.includes(button)) {
+              buttonLabel = button;
+            } else if (button === '.') {
+              buttonLabel = 'decimal';
+            } else {
+              buttonLabel = numberButtons[parseInt(button)];
+            }
+
+            return (
+              <Button
+                key={button}
+                id={buttonLabel}
+                name={button}
+                clickHandler={clickHandler}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ButtonPanel;
+
+
+
+
+
+
+
+/*
 import React from "react";
 import Button from './Button';
 
@@ -14,7 +73,7 @@ const ButtonPanel = ({clickHandler}) => {
     const numberButtons = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     const operatorButtons = ['add', 'subtract', 'multiply', 'divide'];
 
-
+    
     return(
       <div className="button-panel"> 
         {buttonGroups.map((group, index) => (
@@ -25,7 +84,7 @@ const ButtonPanel = ({clickHandler}) => {
 
                     <Button 
                     key={button} 
-                    id={button.toLowerCase()}
+                    id="clear"
                     name={button} 
                     clickHandler={clickHandler} 
                     />
@@ -74,6 +133,9 @@ const ButtonPanel = ({clickHandler}) => {
  
       </div> 
     )
+    
   }
 
 export default ButtonPanel;
+
+*/
