@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Display from '../components/Display';
 import ButtonPanel from '../components/ButtonPanel';
+import { evaluate } from  'mathjs';
 
 const Calculator = () => {
     const[display, setDisplay] = useState('0');
@@ -20,8 +21,20 @@ const Calculator = () => {
             }
         } else {
             setDisplay((prevDisplay) => {
-                const updatedDisplay = prevDisplay === '0' ? buttonName : prevDisplay + buttonName;
+
+                let updatedDisplay;
+                if (
+                    buttonName === '.' && (prevDisplay.includes('.') || prevDisplay.endsWith('.'))
+                    ) {
+                        updatedDisplay = prevDisplay;
+                    } else if (buttonName === '.' && prevDisplay.match(/[-+*/]$/)) {
+                        updatedDisplay = prevDisplay + 0 + buttonName;
+               
+                } else {
+                    updatedDisplay = prevDisplay === '0' ? buttonName : prevDisplay + buttonName;
+                }
                 return updatedDisplay;
+                
                 }
             )
         }
@@ -29,7 +42,12 @@ const Calculator = () => {
     };
     
     const evaluateExpression = (expression) => {
-        return new Function('return ' + expression)();
+        try {
+            return evaluate(expression);
+        } catch (error) {
+            console.error('Error:', error);
+            return 'Error';
+        }
     }
     
 

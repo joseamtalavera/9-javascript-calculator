@@ -33,7 +33,46 @@ const ButtonPanel = ({ clickHandler }) => {
               buttonLabel = numberButtons[parseInt(button)];
             }
 
-            return (
+            // Explictly set the id values for the operator buttons
+
+            if(button === '+') {
+              return (
+                <Button
+                  key={button}
+                  id="add"
+                  name={button}
+                  clickHandler={clickHandler}
+                    />
+              );
+            } else if (button === '-') {
+              return (
+                <Button
+                  key={button}
+                  id="subtract"
+                  name={button}
+                  clickHandler={clickHandler}
+                    />
+              );
+            } else if (button === '*') {
+              return (
+                <Button
+                  key={button}
+                  id="multiply"
+                  name={button}
+                  clickHandler={clickHandler}
+                    />
+              );
+            } else if (button === '/') {
+              return (
+                <Button
+                  key={button}
+                  id="divide"
+                  name={button}
+                  clickHandler={clickHandler}
+                  />
+              );
+            } else {
+              return (
               <Button
                 key={button}
                 id={buttonLabel}
@@ -41,6 +80,7 @@ const ButtonPanel = ({ clickHandler }) => {
                 clickHandler={clickHandler}
               />
             );
+            }
           })}
         </div>
       ))}
