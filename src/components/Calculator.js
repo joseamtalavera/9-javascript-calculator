@@ -6,7 +6,6 @@ import { evaluate } from  'mathjs';
 const Calculator = () => {
     const[display, setDisplay] = useState('0');
 
-
     const handleButtonClick = (buttonName) => {
         
         if(buttonName === 'AC') {
@@ -21,36 +20,55 @@ const Calculator = () => {
             }
         } else {
             setDisplay((prevDisplay) => {
-
                 let updatedDisplay;
-                if (
-                    buttonName === '.' && (prevDisplay.includes('.') || prevDisplay.endsWith('.'))
-                    ) {
-                        updatedDisplay = prevDisplay;
-                    } else if (buttonName === '.' && prevDisplay.match(/[-+*/]$/)) {
-                        updatedDisplay = prevDisplay + 0 + buttonName;
-               
+
+
+                if (buttonName === '.') {
+                    const parts = prevDisplay.split(/[+\-*/]/);
+                    const lastNumber = parts[parts.length -1];
+
+                    if (!lastNumber.includes('.') || lastNumber === '') {
+                      updatedDisplay = prevDisplay + buttonName;
+                    } else {
+                      updatedDisplay = prevDisplay;
+                    }
+
+
+
+                } else if (buttonName.match(/[-+*/]/)) {
+                // Check if the last character is an operator, excluding the negative sign
+                     if (prevDisplay.match(/[-+*/]$/) && buttonName !== '-') {
+                // Replace the last operator with the new one
+                updatedDisplay = prevDisplay.slice(0, -1) + buttonName;
+                } else if (buttonName === '-' && prevDisplay === '0') {
+                // Start a negative number
+                updatedDisplay = buttonName;
+                } else {
+                updatedDisplay = prevDisplay + buttonName;
+                }
+
+
+
                 } else {
                     updatedDisplay = prevDisplay === '0' ? buttonName : prevDisplay + buttonName;
                 }
+
                 return updatedDisplay;
-                
-                }
-            )
+            });
         }
-        
     };
-    
+
     const evaluateExpression = (expression) => {
         try {
-            return evaluate(expression);
+            const formattedExpression = expression.replace(/÷/g, '/');
+            const result = evaluate(formattedExpression);
+            return result;
         } catch (error) {
             console.error('Error:', error);
             return 'Error';
         }
     }
     
-
     return(
         <div className="calculator-container">
             <Display value={display}/>
