@@ -4,11 +4,13 @@ import Button from './Button';
 
 const ButtonPanel = ({ clickHandler }) => {
   const buttonGroups = [
+   
     ['7', '8', '9', '/'],
     ['4', '5', '6', '*'],
     ['1', '2', '3', '-'],
     ['0', '.', '=', '+'],
     ['AC']
+    
   ];
 
   const numberButtons = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
@@ -71,6 +73,15 @@ const ButtonPanel = ({ clickHandler }) => {
                   clickHandler={clickHandler}
                   />
               );
+            } else if(button === 'AC') {
+              return (
+                <Button
+                  key={button}
+                  id="clear"
+                  name={button}
+                  clickHandler={clickHandler}
+                  />
+              )
             } else {
               return (
               <Button

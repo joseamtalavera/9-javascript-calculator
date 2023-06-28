@@ -36,16 +36,17 @@ const Calculator = () => {
 
 
                 } else if (buttonName.match(/[-+*/]/)) {
-                // Check if the last character is an operator, excluding the negative sign
-                     if (prevDisplay.match(/[-+*/]$/) && buttonName !== '-') {
-                // Replace the last operator with the new one
-                updatedDisplay = prevDisplay.slice(0, -1) + buttonName;
-                } else if (buttonName === '-' && prevDisplay === '0') {
-                // Start a negative number
-                updatedDisplay = buttonName;
-                } else {
-                updatedDisplay = prevDisplay + buttonName;
-                }
+                    const lastChar = prevDisplay.slice(-1);
+            
+                    if (
+                      (lastChar.match(/[-+*/]/) && buttonName !== '-') ||
+                      (lastChar === '-' && prevDisplay.slice(-2, -1).match(/[-+*/]/))
+                    ) {
+                      // Replace the last operator with the new one
+                      updatedDisplay = prevDisplay.slice(0, -1) + buttonName;
+                    } else {
+                      updatedDisplay = prevDisplay + buttonName;
+                    }
 
 
 
@@ -71,6 +72,7 @@ const Calculator = () => {
     
     return(
         <div className="calculator-container">
+            
             <Display value={display}/>
             <ButtonPanel clickHandler={handleButtonClick} />
         </div>

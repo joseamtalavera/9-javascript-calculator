@@ -4,8 +4,10 @@ const Display = ({value}) => {
 
 
     return(
+        <div className="display-wrapper">
         <div className="display-container" id="display">
             {value}
+            </div>
         </div>
     );
 };
